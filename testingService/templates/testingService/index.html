@@ -1,0 +1,31 @@
+<DOCTYPE html>
+<html>
+  
+  <head>
+    <title>Автоматизированное тестирование</title>
+  </head>
+
+
+  <body>
+   
+    <a href='{% url 'logout' %}' align='right' >Выйти</a>
+
+    <h1>Выбрать тест</h1>
+    
+    <div>
+    {% if subject_list %}
+      <ul>
+      {% for subject in subject_list %}
+        <li>
+          <a href='{% url 'subject' subject.id %}'>{{ subject.title }}</a>
+        </li>
+      {% endfor %}
+      </ul>
+    {% else %}
+      Доступные тесты отсутствуют
+    {% endif %}
+    </div>
+
+  </body>
+
+</html>

@@ -1,0 +1,43 @@
+<DOCTYPE html>
+<html>
+  
+  <head>
+    <title>{{ subject.title }}</title>
+  </head>
+
+
+  <body>
+
+    <div>
+      <a href={% url 'index' %}>Выбрать тест</a>
+      <a href='{% url 'logout' %}' align='right' >Выйти</a>
+    </div>
+   
+    <h1>{{ subject.title }}</h1>
+
+    {% if question and answer_list%}
+    <form id='question_form' method='post' action='/testingService/subject/' >
+    {% csrf_token %}
+      <p>{{ question.title }}</p>
+      <input type='hidden' name='subject_id' value='{{ subject.id }}' hide='true' />
+      <input type='hidden' name='question_id' value='{{ question.id }}' hide='true' />
+      <input type='hidden' name='is_correct' value='{{ is_correct }}' hide='true' />
+      Вопрос: 
+      <input type='text' name='question_number' value='{{ question_number }}' readonly='readonly' size='3' /> из 
+      <input type='text' name='question_count' value='{{ question_count }}' readonly='readonly' size='3' />
+      <br />
+
+      {% for answer in answer_list %}
+        <input type='checkbox' name='checks[]' value='{{ answer.id }}' size='128' />{{ answer.title }}
+        <br />
+      {% endfor %}
+
+      <br />
+      <input type='submit' value='Ответить' />
+    </form>  
+    {% else %}
+      {{ result }}
+    {% endif %}
+  </body>
+
+</html>
